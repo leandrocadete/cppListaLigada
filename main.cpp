@@ -4,7 +4,7 @@
 #include <cstdlib>
 using namespace std;
 
-
+// Classe exemplo, poderia ser pessoa, produto, carro, etc
 class Animal {
 public:
     char cNome[50];
@@ -13,20 +13,20 @@ public:
     //Animal *ptrProximo;
 };
 
-
+// Container para emcapsular os itens da lista e criar ligação entre eles
 template <class TItem>
 class Item {
 public:
     Item* ptrProximo;
     TItem item;
 };
-
+// Classe que representa a lista em sí
 template <class T>
 class Lista {
     int size;
-    T *ptrPrimeiro; // Ponteiro para montar a lista
-    T *ptrUlt;      // Ponteiro para montar a lista
-    T stItem;     // para conter um item
+    Item<T> *ptrPrimeiro; // Ponteiro para montar a lista
+    Item<T> *ptrUlt;      // Ponteiro para montar a lista
+    Item<T> stItem;     // para conter um item
 
 public:
     Lista() {
@@ -36,26 +36,28 @@ public:
 
     void add(T item) {
         if (this->ptrPrimeiro == NULL) { // Será o primeiro
-            this->ptrPrimeiro = this->ptrUlt = new T;
+            this->ptrPrimeiro = this->ptrUlt = new Item<T>;
         }
         else { // Será o último
-            this->ptrUlt = this->ptrUlt->ptrProximo = new T;
+            this->ptrUlt = this->ptrUlt->ptrProximo = new Item<T>;
         }
         this->ptrUlt->ptrProximo = NULL; // O último aponta para NULL
         // copiar o conteúdo de animal para ptrUltimo
-        memcpy(this->ptrUlt, &item, sizeof(T));
+        Item<T> nItem;
+        nItem.item = item;
+        memcpy(this->ptrUlt, &nItem, sizeof(Item<T>));
         this->size++; // size
     }
     T get(int pos) {
         if (pos > size || pos < 0) {
             cerr << "Out of range" << endl;
-            T *ptrWork = new T;
-            return *ptrWork;
+            Item<T> *ptrWork = new Item<T>;
+            return ptrWork->item;
         }
-        T *ptrWork;
+        Item<T> *ptrWork;
         int i;
         for (ptrWork = this->ptrPrimeiro, i = 0; i < pos; ptrWork = ptrWork->ptrProximo, i++);
-        return *ptrWork;
+        return ptrWork->item;
     }
     bool insert(T item, int pos) {
         if (pos > size || pos < 0) {
