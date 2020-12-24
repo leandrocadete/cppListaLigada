@@ -10,11 +10,18 @@ public:
     char cNome[50];
     char cGroup[46];
     int nCodigo;
-    Animal *ptrProximo;
+    //Animal *ptrProximo;
+};
+
+
+template <class TItem>
+class Item {
+public:
+    Item* ptrProximo;
+    TItem item;
 };
 
 template <class T>
-
 class Lista {
     int size;
     T *ptrPrimeiro; // Ponteiro para montar a lista
@@ -27,7 +34,7 @@ public:
         this->size = 0;
     }
 
-    void add(T a) {
+    void add(T item) {
         if (this->ptrPrimeiro == NULL) { // Será o primeiro
             this->ptrPrimeiro = this->ptrUlt = new T;
         }
@@ -36,7 +43,7 @@ public:
         }
         this->ptrUlt->ptrProximo = NULL; // O último aponta para NULL
         // copiar o conteúdo de animal para ptrUltimo
-        memcpy(this->ptrUlt, &a, sizeof(T));
+        memcpy(this->ptrUlt, &item, sizeof(T));
         this->size++; // size
     }
     T get(int pos) {
@@ -62,21 +69,24 @@ public:
 };
 
 
+
 int main(int argc, char *argv[]) {
     
-    Lista<Animal> stLista;
+    Lista<Item<Animal>> stLista;
     
     for (int i = 1; i < argc; i++) {
+        Item<Animal> itemAnimal;
         Animal a;
         sprintf(a.cNome, "Nome: %s", argv[i]);
         sprintf(a.cGroup, "%d", i +1);
+        itemAnimal.item = a;
         a.nCodigo = i + 1;
-        stLista.add(a);
+        stLista.add(itemAnimal);
     }
 
     cout << "Quantidade total " << stLista.getSize() << endl;
     for (int i = 0; i < stLista.getSize(); i++) {
-        printf("%dº Animal; Nome: %s\n", i,  stLista.get(i).cNome);
+        printf("%dº Animal; Nome: %s\n", i,  stLista.get(i).item.cNome);
     }
 
     return 0;
