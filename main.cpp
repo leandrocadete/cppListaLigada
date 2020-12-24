@@ -15,29 +15,23 @@ public:
 
 template <class T>
 
-class Lista
-{
+class Lista {
     int size;
-
-public:
     T *ptrPrimeiro; // Ponteiro para montar a lista
     T *ptrUlt;      // Ponteiro para montar a lista
     T stAnimal;     // para conter um animal
 
-    Lista()
-    {
+public:
+    Lista() {
         this->ptrPrimeiro = NULL;
         this->size = 0;
     }
 
-    void add(T a)
-    {
-        if (this->ptrPrimeiro == NULL) // Será o primeiro
-        {
+    void add(T a) {
+        if (this->ptrPrimeiro == NULL) { // Será o primeiro
             this->ptrPrimeiro = this->ptrUlt = new T;
         }
-        else // Será o último
-        {
+        else { // Será o último
             this->ptrUlt = this->ptrUlt->ptrProximo = new T;
         }
         this->ptrUlt->ptrProximo = NULL; // O último aponta para NULL
@@ -45,19 +39,15 @@ public:
         memcpy(this->ptrUlt, &a, sizeof(T));
         this->size++; // size
     }
-    T get(int pos)
-    {
-        if (pos > size || pos < 0)
-        {
+    T get(int pos) {
+        if (pos > size || pos < 0) {
             cout << "Out of range" << endl;
             Animal *ptrWork = new T;
             return *ptrWork;
         }
         Animal *ptrWork;
         int i;
-        for (ptrWork = this->ptrPrimeiro, i = 0; i < pos; ptrWork = ptrWork->ptrProximo, i++)
-        {
-        }
+        for (ptrWork = this->ptrPrimeiro, i = 0; i < pos; ptrWork = ptrWork->ptrProximo, i++);
         return *ptrWork;
     }
     int getSize() { return this->size; }
@@ -65,12 +55,10 @@ public:
 };
 
 
-int main()
-{
+int main() {
     Lista<Animal> stLIsta;
     int n = 0;
-    do
-    {
+    do {
         Animal a;
         cout << "Entre com o nome de um animail" << endl;
         cin >> a.cNome;
