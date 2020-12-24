@@ -7,8 +7,8 @@ using namespace std;
 
 class Animal {
 public:
-    char cNome[21];
-    char cGroup[21];
+    char cNome[50];
+    char cGroup[46];
     int nCodigo;
     Animal *ptrProximo;
 };
@@ -19,7 +19,7 @@ class Lista {
     int size;
     T *ptrPrimeiro; // Ponteiro para montar a lista
     T *ptrUlt;      // Ponteiro para montar a lista
-    T stAnimal;     // para conter um animal
+    T stItem;     // para conter um item
 
 public:
     Lista() {
@@ -41,34 +41,44 @@ public:
     }
     T get(int pos) {
         if (pos > size || pos < 0) {
-            cout << "Out of range" << endl;
-            Animal *ptrWork = new T;
+            cerr << "Out of range" << endl;
+            T *ptrWork = new T;
             return *ptrWork;
         }
-        Animal *ptrWork;
+        T *ptrWork;
         int i;
         for (ptrWork = this->ptrPrimeiro, i = 0; i < pos; ptrWork = ptrWork->ptrProximo, i++);
         return *ptrWork;
+    }
+    bool insert(T item, int pos) {
+        if (pos > size || pos < 0) {
+            cerr << "Invalid index" << endl;
+        }
+
+        return true;
     }
     int getSize() { return this->size; }
     bool isEmpty() { return this->size == 0; }
 };
 
 
-int main() {
-    Lista<Animal> stLIsta;
-    int n = 0;
-    do {
+int main(int argc, char *argv[]) {
+    
+    Lista<Animal> stLista;
+    
+    for (int i = 1; i < argc; i++) {
         Animal a;
-        cout << "Entre com o nome de um animail" << endl;
-        cin >> a.cNome;
+        sprintf(a.cNome, "Nome: %s", argv[i]);
+        sprintf(a.cGroup, "%d", i +1);
+        a.nCodigo = i + 1;
+        stLista.add(a);
+    }
 
-        stLIsta.add(a);
-        n++;
-    } while (n < 4);
-    cout << "Quantidade total " << stLIsta.getSize() << endl;
-    cout << "Primeiro Animal: " << stLIsta.get(0).cNome << endl;
-    cout << "Quarto Animal: " << stLIsta.get(3).cNome << endl;
+    cout << "Quantidade total " << stLista.getSize() << endl;
+    for (int i = 0; i < stLista.getSize(); i++) {
+        printf("%dº Animal; Nome: %s\n", i,  stLista.get(i).cNome);
+    }
+
     return 0;
 }
 
