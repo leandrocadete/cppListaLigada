@@ -10,7 +10,6 @@ public:
     char cNome[50];
     char cGroup[46];
     int nCodigo;
-    //Animal *ptrProximo;
 };
 
 // Container para emcapsular os itens da lista e criar ligação entre eles
@@ -26,7 +25,6 @@ class Lista {
     int size;
     Item<T> *ptrPrimeiro; // Ponteiro para montar a lista
     Item<T> *ptrUlt;      // Ponteiro para montar a lista
-    Item<T> stItem;     // para conter um item
 
 public:
     Lista() {
@@ -37,8 +35,7 @@ public:
     void add(T item) {
         if (this->ptrPrimeiro == NULL) { // Será o primeiro
             this->ptrPrimeiro = this->ptrUlt = new Item<T>;
-        }
-        else { // Será o último
+        } else { // Será o último
             this->ptrUlt = this->ptrUlt->ptrProximo = new Item<T>;
         }
         this->ptrUlt->ptrProximo = NULL; // O último aponta para NULL
@@ -49,7 +46,7 @@ public:
         this->size++; // size
     }
     T get(int pos) {
-        if (pos > size || pos < 0) {
+        if (pos >= size || pos < 0) {
             cerr << "Out of range" << endl;
             Item<T> *ptrWork = new Item<T>;
             return ptrWork->item;
@@ -60,11 +57,40 @@ public:
         return ptrWork->item;
     }
     bool insert(T item, int pos) {
-        if (pos > size || pos < 0) {
+        if (pos >= size || pos < 0) {
             cerr << "Invalid index" << endl;
+            return false;
+        }
+        // pega o index desejado
+        Item<T> *ptrWork;
+        int i;
+        if(pos == 0) {
+            ptrWork = this->ptrPrimeiro;
+        } else {
+            for (ptrWork = this->ptrPrimeiro, i = 0; i < pos-1; ptrWork = ptrWork->ptrProximo, i++);
         }
 
+        Item<T> *newItem = new Item<T>();
+        newItem->item = item;
+
+        Item<T>* backup = ptrWork->ptrProximo;
+        ptrWork->ptrProximo = newItem;
+        newItem->ptrProximo = backup; 
+        this->size++;
         return true;
+    }
+    bool remove(int pos) {
+        if(pos >= size || pos < 0) {
+            cerr << "Invalid index" << endl;
+            return false;
+        }
+        Item<T> *ptrWork;
+        int i;
+        if(pos == 0) {
+            this->ptrPrimeiro = this->ptrPrimeiro->ptrProximo;
+        } else {
+            for (ptrWork = this->ptrPrimeiro, i = 0; i < pos-1; ptrWork = ptrWork->ptrProximo, i++);
+        }
     }
     int getSize() { return this->size; }
     bool isEmpty() { return this->size == 0; }
@@ -74,21 +100,30 @@ public:
 
 int main(int argc, char *argv[]) {
     
-    Lista<Item<Animal>> stLista;
+    Lista<Animal> stLista;
     
     for (int i = 1; i < argc; i++) {
-        Item<Animal> itemAnimal;
         Animal a;
         sprintf(a.cNome, "Nome: %s", argv[i]);
         sprintf(a.cGroup, "%d", i +1);
-        itemAnimal.item = a;
         a.nCodigo = i + 1;
-        stLista.add(itemAnimal);
+        stLista.add(a);
     }
+
+    Item<Animal> ai;
+    Animal an;
+    sprintf(an.cNome, "Nome: %s", "Inserção teste");
+    an.nCodigo = 98;
+
+    ai.item = an;
+    stLista.insert(an, 0);
+
+
+
 
     cout << "Quantidade total " << stLista.getSize() << endl;
     for (int i = 0; i < stLista.getSize(); i++) {
-        printf("%dº Animal; Nome: %s\n", i,  stLista.get(i).item.cNome);
+        printf("%dº Animal; Nome: %s\n", i,  stLista.get(i).cNome);
     }
 
     return 0;
