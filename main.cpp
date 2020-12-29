@@ -90,7 +90,9 @@ public:
             this->ptrPrimeiro = this->ptrPrimeiro->ptrProximo;
         } else {
             for (ptrWork = this->ptrPrimeiro, i = 0; i < pos-1; ptrWork = ptrWork->ptrProximo, i++);
+            ptrWork->ptrProximo = ptrWork->ptrProximo->ptrProximo;
         }
+        this->size--;
     }
     int getSize() { return this->size; }
     bool isEmpty() { return this->size == 0; }
@@ -119,6 +121,7 @@ int main(int argc, char *argv[]) {
     stLista.insert(an, 0);
 
 
+    stLista.remove(6);
 
 
     cout << "Quantidade total " << stLista.getSize() << endl;
