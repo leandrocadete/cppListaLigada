@@ -16,6 +16,8 @@ public:
 template <class TItem>
 class Item {
 public:
+    Item() {}
+    ~Item() { cout << "Destructor Item" << endl; }
     Item* ptrProximo;
     TItem item;
 };
@@ -29,6 +31,7 @@ class Lista {
 public:
     Lista() {
         this->ptrPrimeiro = NULL;
+        this->ptrUlt = NULL;
         this->size = 0;
     }
 
@@ -94,6 +97,28 @@ public:
         }
         this->size--;
     }
+    void clear() {
+        // TODO
+        // cout << "Clear" << endl;
+        Item<T> *ptrWork; int i = 0;
+        Item<T> *ptrTemp;
+
+        for(ptrWork = this->ptrPrimeiro, ptrTemp = ptrWork, i = 0; i < size; ptrTemp = ptrWork, ptrWork = ptrTemp->ptrProximo, i++) {
+            // if(ptrWork != NULL) {
+            //     printf("Index: %d, \t %s\n", i, ((Animal) ptrWork->item).cNome);
+            // } else {
+            //     printf("NUll pointer");
+            // }
+            if(i != 0) {
+                printf("Delete Index: %d, \t %s\n", i, ((Animal) ptrTemp->item).cNome);
+                delete ptrTemp;
+
+            }
+        }
+        //printf("First Index: %d, \t %s\n", 0, ((Animal) this->ptrUlt->item).cNome);
+        //delete this->ptrPrimeiro;
+        delete this->ptrUlt;
+    }
     int getSize() { return this->size; }
     bool isEmpty() { return this->size == 0; }
 };
@@ -128,6 +153,7 @@ int main(int argc, char *argv[]) {
     for (int i = 0; i < stLista.getSize(); i++) {
         printf("%dº Animal; Nome: %s\n", i,  stLista.get(i).cNome);
     }
+    stLista.clear();
 
     return 0;
 }
