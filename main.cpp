@@ -11,39 +11,33 @@ using namespace std;
 int main(int argc, char *argv[]) {
     
     Lista<Animal> stLista;
-    
-    Animal temp_1;
-    sprintf(temp_1.cNome, "%s", "Insert Vaca teste");
-    sprintf(temp_1.cGroup, "%s", "Mamifero");
-    temp_1.nCodigo = -1;
-    //stLista.insert(temp_1, 0);
-
-    for (int i = 0; i < stLista.getSize(); i++) {
-        printf("%dº Animal; Nome: %s\n", i,  stLista.get(i).cNome);
-    }
-    
-    // printf("Press a key\n");
-    // system("read r");
-    // system("clear");
 
     for (int i = 1; i < argc; i++) {
         Animal a;
-        sprintf(a.cNome, "Nome: %s", argv[i]);
-        sprintf(a.cGroup, "%d", i +1);
+        char *d = strchr(argv[i], '-');
+        string nome_grupo(argv[i]);
+        int traco = nome_grupo.find('-');
+
+        string nome = nome_grupo.substr(0, traco);
+        string grupo = nome_grupo.substr(traco);
+
+        sprintf(a.cNome, "%s", nome.c_str());
+        sprintf(a.cGroup, "%s", grupo.c_str());
         a.nCodigo = i + 1;
         stLista.add(a);
     }
 
     Item<Animal> ai;
     Animal an;
-    sprintf(an.cNome, "Nome: %s", "Inserção teste");
+    sprintf(an.cNome, "%s", "Vaca");
+    sprintf(an.cGroup, "%s", "Mamifero");
     an.nCodigo = 98;
 
     ai.item = an;
     stLista.insert(an, 0);
 
 
-    stLista.remove(6);
+    stLista.remove(5);
 
 
     printf("%s %d\n", "Quantidade total ", stLista.getSize());

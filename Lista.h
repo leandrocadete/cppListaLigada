@@ -90,14 +90,19 @@ public:
     }
     bool remove(int pos) {
         if(pos >= size || pos < 0) {
-            cerr << "Invalid index\n";
+            cerr << "Invalid position at Lista.remove(int pos)\n";
             return false;
         }
         Item<T> *ptrWork;
         int i;
         if(pos == 0) {
             this->ptrPrimeiro = this->ptrPrimeiro->ptrProximo;
-        } else {
+        } 
+        // else if(pos == size -1) {
+        //     for (ptrWork = this->ptrPrimeiro, i = 0; i < pos-1; ptrWork = ptrWork->ptrProximo, i++);
+        //     ptrWork = NULL;
+        // } 
+        else {
             for (ptrWork = this->ptrPrimeiro, i = 0; i < pos-1; ptrWork = ptrWork->ptrProximo, i++);
             ptrWork->ptrProximo = ptrWork->ptrProximo->ptrProximo;
         }
