@@ -3,18 +3,10 @@
 #include <cstdio>
 #include <cstdlib>
 
-#include "Item.h"
+
 #include "Lista.h"
 
 using namespace std;
-
-
-
-// Container para emcapsular os itens da lista e criar ligação entre eles
-
-// Classe que representa a lista em sí
-
-
 
 int main(int argc, char *argv[]) {
     

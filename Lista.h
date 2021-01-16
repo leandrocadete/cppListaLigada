@@ -1,5 +1,6 @@
 #ifndef LISTA_H
 
+#include "Item.h"
 #include <iostream>
 
 using namespace std;
