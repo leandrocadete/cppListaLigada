@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
     stLista.insert(an, 0);
 
 
-    stLista.remove(5);
+    //stLista.remove(5);
 
 
     printf("%s %d\n", "Quantidade total ", stLista.getSize());

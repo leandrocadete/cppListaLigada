@@ -76,11 +76,11 @@ public:
 
             Item<T>* backup = ptrWork->ptrProximo;
             if(pos>0) {
-                printf("Nome $$$ %s $$$\n", ((Animal)ptrWork->item).cNome);
+                //printf("Nome $$$ %s $$$\n", ((Animal)ptrWork->item).cNome);
                 ptrWork->ptrProximo = newItem;
                 newItem->ptrProximo = backup; 
             } else {
-                printf("Nome ### %s ###\n", ((Animal)ptrWork->item).cNome);
+                //printf("Nome ### %s ###\n", ((Animal)ptrWork->item).cNome);
                 newItem->ptrProximo = ptrWork;
                 this->ptrPrimeiro = newItem;
             }
