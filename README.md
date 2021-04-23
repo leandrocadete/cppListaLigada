@@ -15,7 +15,7 @@ Lista ligada em c++ para fins didáticos com uso de template
 Compilar o código em executável
 `g++ main.c -o nome_exec`
 
-Também é possível alterar o arquivo teste.sh e executá-lo
+Também é possível alterar o arquivo `teste.sh` e executá-lo
 ele já faz a compilção e executa um pequeno teste.
 
 Execução após compilação
